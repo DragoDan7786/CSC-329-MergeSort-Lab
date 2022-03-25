@@ -470,11 +470,10 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
   private Node<T> mergeSort(Node<T> head)
     {
         // Base case : if head is null
-        if (n==0) {
-            System.out.println("No Items");
+        if (head == dummy) {
             return head;
         }
-        if(n == 1)
+        if(head.next == dummy)
             return head;
         
         //end of the first half
