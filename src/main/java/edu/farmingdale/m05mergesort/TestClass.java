@@ -38,6 +38,8 @@ public class TestClass implements RunTest {
         t.add("342");
         s.append("455");
         t.add("455");
+        System.out.println(s);
+        System.out.println(t);
         // compare s and t (should be the same)
         if (t.size() != s.getCount()) {
             System.err.println("Count is different when it should be the same (1)");
