@@ -474,45 +474,37 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
             System.out.println("No Items");
             return head;
         }
- 
-        // get the middle of the list
-        System.out.println("oh boy");
-        Node<T> middle = getMiddle(head); System.out.println("point1");
-        Node<T> nextofmiddle = middle.next; System.out.println("point2");
- 
-        // set the next of middle node to null
-        setNext(middle.next , null); System.out.println("point3");
- 
-        // Apply mergeSort on left list
-        Node<T> left = mergeSort(head); System.out.println("point4");
- 
-        // Apply mergeSort on right list
-        Node<T> right = mergeSort(nextofmiddle); System.out.println("point5");
- 
-        // Merge the left and right lists
+        if(n == 1)
+            return head;
+        
+        //end of the first half
+        Node<T> middleEnd = getMiddle(head);
+        //beginning of the first half
+        Node<T> middleStart = middleEnd.next;
+        setNext(middleEnd , null);
+        setPrevious(middleStart , null);
+        
+        Node<T> left = mergeSort(middleEnd);
+        Node<T> right = mergeSort(middleStart);
+        
         Node<T> sortedlist = sortedMerge(left, right); System.out.println("point6");
         return sortedlist;
     }
   
   private Node<T> getMiddle(Node<T> theNode){
-      if (theNode == null){
-          System.out.println("point7");
-            return theNode;
-      }
-      
-      if(theNode.next.next == null && theNode.next != null){
-          System.out.println("point8");
+      if((theNode == null || theNode.next == null) 
+              || ((theNode == dummy || theNode.next == dummy)))
           return theNode;
-      }
       
- 
-        Node<T> slowRun = theNode , fastRun = theNode;
- 
-        while ((fastRun.next != dummy && fastRun.next != null) && (fastRun.next.next != dummy && fastRun.next != null)) {
-            slowRun = slowRun.next;
-            fastRun = fastRun.next.next;
-        }
-        return slowRun;
+      Node<T> slowRun = theNode;
+      Node<T> fastRun = theNode;
+      
+      while(slowRun.next != null && slowRun.next != dummy
+              && fastRun.next.next != null && fastRun.next.next != dummy){
+          slowRun = slowRun.next;
+          fastRun = fastRun.next.next;
+      }
+      return slowRun;
   }
   
   private Node<T> sortedMerge(Node<T> a, Node<T> b)
