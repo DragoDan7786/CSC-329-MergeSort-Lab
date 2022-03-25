@@ -487,7 +487,7 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
         Node<T> left = mergeSort(head);
         Node<T> right = mergeSort(middleStart);
         
-        Node<T> sortedlist = sortedMerge(left, right); System.out.println("point6");
+        Node<T> sortedlist = sortedMerge(left, right);
         return sortedlist;
     }
   
@@ -515,7 +515,22 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
             return b;
         if (b == null)
             return a;
- 
+        
+        if(a == dummy){
+            result = b;
+            setNext(result , dummy);
+            dummy.previous = b;
+            return b;
+        }
+        
+        if(b == dummy){
+            result = a;
+            setNext(result , dummy);
+            dummy.previous = a;
+            return a;
+        }
+        
+        
         /* Pick either a or b, and recur */
         if (a.data.compareTo(b.data) <= 0) {
             result = a;
@@ -527,7 +542,6 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
         }
         else {
             result = b;
-            System.out.println("point10");
             Node<T> theNext = sortedMerge(a, b.next);
             setNext(result , theNext);
             setPrevious(theNext, result);

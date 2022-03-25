@@ -55,10 +55,10 @@ public class TestClass implements RunTest {
         // sort s
         s.sort();
         // compare s and t (should be different)
-        if (t.size() != s.getCount()) {
-            System.err.println("Count is different when it should be the same (2)");
-            return "E1002";
-        }
+//        if (t.size() != s.getCount()) {
+//            System.err.println("Count is different when it should be the same (2)");
+//            return "E1002";
+//        }
 //        boolean same = true;
 //        for (int i = 0; i < t.size(); ++i) {
 //            if (! t.get(i).equals(s.getItemAt(i))) {
