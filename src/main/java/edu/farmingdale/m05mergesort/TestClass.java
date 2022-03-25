@@ -59,6 +59,7 @@ public class TestClass implements RunTest {
             System.err.println("Count is different when it should be the same (2)");
             return "E1002";
         }
+        System.out.println(s);
 //        boolean same = true;
 //        for (int i = 0; i < t.size(); ++i) {
 //            if (! t.get(i).equals(s.getItemAt(i))) {
@@ -71,7 +72,7 @@ public class TestClass implements RunTest {
 //        }
 //        // sort t
 //        Collections.sort(t);
-//
+
 //        // compare s and t (should be the same)
 //                if (t.size() != s.getCount()) {
 //            System.err.println("Count is different when it should be the same (3)");

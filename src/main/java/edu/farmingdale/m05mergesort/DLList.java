@@ -123,7 +123,7 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
                 }
                 T theData = current.data;
                 current = current.next;
-                numItems --;
+                numItems--;
                 return theData;
             } // next()
 
@@ -282,7 +282,7 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
      * "position" if that position will not exist when you add the item
      */
     public boolean addAt(int position, T addMe) {
-         Node<T> current = dummy.next;
+        Node<T> current = dummy.next;
         int i = 0;
         while (i < position && current.next != dummy) {
             current = current.next;
@@ -291,12 +291,12 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
         if (i == position) {
             Node<T> theNode = new Node();
             theNode.data = addMe;
-            setNext(theNode , current);
+            setNext(theNode, current);
             setPrevious(theNode, current.previous);
-            setNext(current.previous , theNode);
-            setPrevious(current , theNode);
+            setNext(current.previous, theNode);
+            setPrevious(current, theNode);
             n++;
-            
+
             return true;
         } else {
             throw new NoSuchElementException();
@@ -311,7 +311,7 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
      * successful)
      */
     public T removeAt(int position) {
-         Node<T> current = dummy.next;
+        Node<T> current = dummy.next;
         int i = 0;
         while (i < position && current.next == dummy) {
             current = current.next;
@@ -319,8 +319,8 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
         }
         if (i == position) {
             T theData = current.data;
-            setNext(current.previous , current.next);
-            setPrevious(current.next , current.previous);
+            setNext(current.previous, current.next);
+            setPrevious(current.next, current.previous);
             n--;
             return theData;
         } else {
@@ -333,10 +333,10 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
     public void append(T addMe) {
         Node<T> theNode = new Node();
         theNode.data = addMe;
-        setNext(theNode , dummy);
+        setNext(theNode, dummy);
         setPrevious(theNode, dummy.previous);
-        setNext(dummy.previous , theNode);
-        setPrevious(dummy , theNode);
+        setNext(dummy.previous, theNode);
+        setPrevious(dummy, theNode);
         n++;
     }
 
@@ -348,10 +348,10 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
     public void prepend(T addMe) {
         Node<T> theNode = new Node();
         theNode.data = addMe;
-        setNext(theNode , dummy.next);
-        setPrevious(dummy.next , theNode);
-        setNext(dummy , theNode);
-        setPrevious(theNode , dummy);
+        setNext(theNode, dummy.next);
+        setPrevious(dummy.next, theNode);
+        setNext(dummy, theNode);
+        setPrevious(theNode, dummy);
         n++;
     }
 
@@ -401,17 +401,17 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
         // you need to write this
         Iterator<T> myIterator = iterator();
         Iterator<T> cwIterator = compareWith.iterator();
-        
-         while (myIterator.hasNext() && cwIterator.hasNext()) {
+
+        while (myIterator.hasNext() && cwIterator.hasNext()) {
             T cwElement = cwIterator.next();
             T llElement = myIterator.next();
             if (!cwElement.equals(llElement)) {
                 return false;
             }
         }
-       
+
         return true;
-       
+
     }
 
     /**
@@ -464,79 +464,95 @@ public class DLList<T extends Comparable<T>> implements SortTestable<T>, Iterabl
     @Override
     public void sort() {
         // do not implement this. This is M5
-            mergeSort(dummy.next);
+       dummy.next = mergeSort(dummy.next);
+        
     }
-    
-  private Node<T> mergeSort(Node<T> head)
-    {
+
+    private Node<T> mergeSort(Node<T> head) {
         // Base case : if head is null
-        if (n==0) {
-            System.out.println("No Items");
+        if (head == null) {
             return head;
         }
-        if(n == 1)
+        if (head.next == null) {
             return head;
-        
+        }
+
         //end of the first half
         Node<T> middleEnd = getMiddle(head);
         //beginning of the first half
         Node<T> middleStart = middleEnd.next;
-        setNext(middleEnd , null);
-        setPrevious(middleStart , null);
-        
+        setNext(middleEnd, null);
+
+        if (middleStart != null) {
+            setPrevious(middleStart, null);
+        }
+
         Node<T> left = mergeSort(head);
         Node<T> right = mergeSort(middleStart);
-        
-        Node<T> sortedlist = sortedMerge(left, right); System.out.println("point6");
-        return sortedlist;
+
+        Node<T> sortedList = sortedMerge(left, right);
+        return sortedList;
     }
-  
-  private Node<T> getMiddle(Node<T> theNode){
-      if((theNode == null || theNode.next == null) 
-              || ((theNode == dummy || theNode.next == dummy)))
-          return theNode;
-      
-     Node<T> slowRun = theNode;
-     Node<T> fastRun = theNode;
-      
-      while(slowRun.next != null && slowRun.next != dummy
-              && fastRun.next.next != null && fastRun.next.next != dummy){
-          slowRun = slowRun.next;
-          fastRun = fastRun.next.next;
-      }
-      return slowRun;
-  }
-  
-  private Node<T> sortedMerge(Node<T> a, Node<T> b)
-    {
+
+    private Node<T> getMiddle(Node<T> theNode) {
+        if ((theNode == null || theNode.next == null)
+                || ((theNode == dummy || theNode.next == dummy))) {
+            return theNode;
+        }
+
+        Node<T> slowRun = theNode;
+        Node<T> fastRun = theNode;
+
+        while (slowRun.next != null && slowRun.next != dummy
+                && fastRun.next.next != null && fastRun.next.next != dummy) {
+            slowRun = slowRun.next;
+            fastRun = fastRun.next.next;
+        }
+        return slowRun;
+    }
+
+    private Node<T> sortedMerge(Node<T> a, Node<T> b) {
         Node<T> result = null;
         /* Base cases */
-        if (a == null)
+        if (a == null) {
             return b;
-        if (b == null)
+        }
+
+        if (b == null) {
             return a;
- 
+        }
+        
+        if(a.next == dummy){
+            result = b;
+            setNext(b , dummy);
+            dummy.previous = a;
+            return result;
+        }
+        
+        if(b.next == dummy){
+            result = a;
+            setNext(a , dummy);
+            dummy.previous = b;
+            return result;
+        }
+
         /* Pick either a or b, and recur */
         if (a.data.compareTo(b.data) <= 0) {
             result = a;
-            System.out.println("point9");
-            Node<T> theNext = sortedMerge(a.next , b);
-            setNext(result , theNext);
+            Node<T> theNext = sortedMerge(a.next, b);
+            setNext(result, theNext);
             setPrevious(theNext, result);
-            
-        }
-        else {
+
+        } else {
             result = b;
-            System.out.println("point10");
             Node<T> theNext = sortedMerge(a, b.next);
-            setNext(result , theNext);
+            setNext(result, theNext);
             setPrevious(theNext, result);
         }
         return result;
+
     }
-    
-    
-    
+
     //setNext method
     private void setNext(Node<T> current, Node<T> theNext) {
         current.next = theNext;
